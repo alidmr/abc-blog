@@ -1,9 +1,11 @@
-﻿using AbcBlog.Domain.Interfaces.User;
+﻿using AbcBlog.Domain.Interfaces.Articles;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Domain.Proxies;
 using AbcBlog.Infrastructure.Context;
 using AbcBlog.Infrastructure.Extensions;
 using AbcBlog.Infrastructure.Proxies;
-using AbcBlog.Infrastructure.Repository.User;
+using AbcBlog.Infrastructure.Repository.Articles;
+using AbcBlog.Infrastructure.Repository.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,8 @@ namespace AbcBlog.Infrastructure
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+
             services.AddScoped<ITokenProxy, TokenProxy>();
 
             var registeredAssemblies = configuration.LoadFullAssemblies();

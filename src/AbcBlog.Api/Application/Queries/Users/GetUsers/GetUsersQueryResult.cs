@@ -1,6 +1,6 @@
-﻿using AbcBlog.Api.Application.Queries.GetUsers.Dtos;
+﻿using AbcBlog.Api.Application.Queries.Users.GetUsers.Dtos;
 
-namespace AbcBlog.Api.Application.Queries.GetUsers
+namespace AbcBlog.Api.Application.Queries.Users.GetUsers
 {
     public class GetUsersQueryResult : BaseQueryResult
     {

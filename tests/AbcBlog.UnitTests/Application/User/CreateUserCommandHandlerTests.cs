@@ -1,6 +1,6 @@
 ﻿using AbcBlog.Api.Application.Commands.Users.Create;
 using AbcBlog.Api.Application.Constants;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using Bogus;
 using FluentAssertions;
@@ -31,13 +31,14 @@ namespace AbcBlog.UnitTests.Application.User
         public void Handle_ShouldInValid_WhenCreateUserAlreadyExitsEmail()
         {
             var faker = new Faker("tr");
+            var userId = faker.Random.Guid();
             var firstName = faker.Person.FirstName;
             var lastName = faker.Person.LastName;
             var email = faker.Internet.Email();
             var password = faker.Internet.Password();
             var salt = faker.Random.String();
 
-            var user = AbcBlog.Domain.Aggregates.Users.User.Load(firstName, lastName, email, true, false, password, salt);
+            var user = AbcBlog.Domain.Aggregates.Users.User.Load(userId, firstName, lastName, email, true, false,false, password, salt);
 
             _userRepositoryMock.Setup(x => x.GetUserByEmailAsync(email))
                 .ReturnsAsync(user);

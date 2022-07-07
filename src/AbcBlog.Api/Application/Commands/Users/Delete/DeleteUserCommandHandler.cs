@@ -1,5 +1,5 @@
 ﻿using AbcBlog.Api.Application.Constants;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using MediatR;
 

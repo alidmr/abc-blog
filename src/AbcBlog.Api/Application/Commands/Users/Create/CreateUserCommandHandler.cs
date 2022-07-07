@@ -1,7 +1,7 @@
 ﻿using AbcBlog.Api.Application.Commands.Users.Create.Dtos;
 using AbcBlog.Api.Application.Constants;
 using AbcBlog.Domain.Aggregates.Users;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using MediatR;
 
@@ -22,7 +22,7 @@ namespace AbcBlog.Api.Application.Commands.Users.Create
             if (userCheck != null)
                 throw new BusinessException(nameof(ApplicationErrorCode.Error5), ApplicationErrorCode.Error5);
 
-            var user = User.Load(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, true, false,"","");
+            var user = User.Load(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, true, false,false,"","");
 
             await _userRepository.AddAsync(user);
 

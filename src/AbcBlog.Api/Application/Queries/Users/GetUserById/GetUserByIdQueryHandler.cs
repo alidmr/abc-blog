@@ -1,9 +1,9 @@
-﻿using AbcBlog.Api.Application.Queries.GetUserById.Dtos;
-using AbcBlog.Domain.Interfaces.User;
+﻿using AbcBlog.Api.Application.Queries.Users.GetUserById.Dtos;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using MediatR;
 
-namespace AbcBlog.Api.Application.Queries.GetUserById
+namespace AbcBlog.Api.Application.Queries.Users.GetUserById
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdQueryResult>
     {

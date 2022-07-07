@@ -2,8 +2,8 @@
 using AbcBlog.Api.Application.Commands.Users.Create;
 using AbcBlog.Api.Application.Commands.Users.Delete;
 using AbcBlog.Api.Application.Commands.Users.Update;
-using AbcBlog.Api.Application.Queries.GetUserById;
-using AbcBlog.Api.Application.Queries.GetUsers;
+using AbcBlog.Api.Application.Queries.Users.GetUserById;
+using AbcBlog.Api.Application.Queries.Users.GetUsers;
 using AbcBlog.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

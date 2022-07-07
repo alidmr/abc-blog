@@ -1,6 +1,6 @@
 ﻿using AbcBlog.Api.Application.Commands.Accounts.Login.Dtos;
 using AbcBlog.Api.Application.Constants;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Domain.Proxies;
 using AbcBlog.Shared.Exceptions;
 using AbcBlog.Shared.Helpers;

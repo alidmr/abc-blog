@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace AbcBlog.Api.Application.Queries.GetUsers
+namespace AbcBlog.Api.Application.Queries.Users.GetUsers
 {
     public class GetUsersQuery : IRequest<GetUsersQueryResult>
     {

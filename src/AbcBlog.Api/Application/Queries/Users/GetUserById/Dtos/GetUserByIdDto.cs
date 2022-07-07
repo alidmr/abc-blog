@@ -1,4 +1,4 @@
-﻿namespace AbcBlog.Api.Application.Queries.GetUserById.Dtos
+﻿namespace AbcBlog.Api.Application.Queries.Users.GetUserById.Dtos
 {
     public class GetUserByIdDto
     {

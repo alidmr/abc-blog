@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using AbcBlog.Domain.Aggregates.Articles;
 using AbcBlog.Domain.Aggregates.Users;
 using AbcBlog.Domain.Interfaces;
 using AbcBlog.Domain.SeedWorks;
@@ -18,6 +19,7 @@ namespace AbcBlog.Infrastructure.Context
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
 
         private readonly IMediator _mediator;

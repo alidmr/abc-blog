@@ -1,7 +1,7 @@
 ﻿using AbcBlog.Domain.Constants;
 using AbcBlog.Domain.Events.Users;
 using AbcBlog.Domain.Exceptions;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using MediatR;
 
 namespace AbcBlog.Domain.EventHandlers.Users

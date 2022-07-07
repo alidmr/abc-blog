@@ -15,5 +15,6 @@
         public static readonly string Error11 = "Şifreler eşleşmiyor";
         public static readonly string Error12 = "Şifre min. 6 karakter olmalıdır";
         public static readonly string Error13 = "Email veya şifreniz yanlış";
+        public static readonly string Error14 = "Makale bulunamadı";
     }
 }

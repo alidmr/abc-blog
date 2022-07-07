@@ -13,10 +13,11 @@ namespace AbcBlog.Domain.Aggregates.Users
         public DateTime CreatedDate { get; private set; }
         public bool IsActive { get; private set; }
         public bool IsDeleted { get; private set; }
+        public bool IsEmailVerified { get; private set; }
         public string Password { get; private set; }
         public string PasswordSalt { get; private set; }
 
-        private User(string firstName, string lastName, string email, DateTime createdDate, bool isActive, bool isDeleted, string password, string passwordSalt)
+        private User(string firstName, string lastName, string email, DateTime createdDate, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -24,11 +25,12 @@ namespace AbcBlog.Domain.Aggregates.Users
             CreatedDate = createdDate;
             IsActive = isActive;
             IsDeleted = isDeleted;
+            IsEmailVerified = isEmailVerified;
             Password = password;
             PasswordSalt = passwordSalt;
         }
 
-        private User(Guid id, string firstName, string lastName, string email, DateTime createdDate, bool isActive, bool isDeleted, string password, string passwordSalt)
+        private User(Guid id, string firstName, string lastName, string email, DateTime createdDate, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
         {
             Id = id;
             FirstName = firstName;
@@ -37,11 +39,12 @@ namespace AbcBlog.Domain.Aggregates.Users
             CreatedDate = createdDate;
             IsActive = isActive;
             IsDeleted = isDeleted;
+            IsEmailVerified = isEmailVerified;
             Password = password;
             PasswordSalt = passwordSalt;
         }
 
-        public static User Load(string firstName, string lastName, string email, bool isActive, bool isDeleted, string password, string passwordSalt)
+        public static User Load(string firstName, string lastName, string email, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
         {
             if (string.IsNullOrEmpty(firstName))
                 throw new DomainException(nameof(DomainErrorCode.Error1), DomainErrorCode.Error1);
@@ -52,10 +55,10 @@ namespace AbcBlog.Domain.Aggregates.Users
             if (string.IsNullOrEmpty(email))
                 throw new DomainException(nameof(DomainErrorCode.Error3), DomainErrorCode.Error3);
 
-            return new User(firstName, lastName, email, DateTime.Now, isActive, isDeleted, password, passwordSalt);
+            return new User(firstName, lastName, email, DateTime.Now, isActive, isDeleted, isEmailVerified, password, passwordSalt);
         }
 
-        public static User Load(Guid id, string firstName, string lastName, string email, bool isActive, bool isDeleted, string password, string passwordSalt)
+        public static User Load(Guid id, string firstName, string lastName, string email, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
         {
             if (id == null || id == Guid.Empty)
                 throw new DomainException(nameof(DomainErrorCode.Error4), DomainErrorCode.Error4);
@@ -69,7 +72,7 @@ namespace AbcBlog.Domain.Aggregates.Users
             if (string.IsNullOrEmpty(email))
                 throw new DomainException(nameof(DomainErrorCode.Error3), DomainErrorCode.Error3);
 
-            return new User(id, firstName, lastName, email, DateTime.Now, isActive, isDeleted, password, passwordSalt);
+            return new User(id, firstName, lastName, email, DateTime.Now, isActive, isDeleted, isEmailVerified, password, passwordSalt);
         }
 
         public User ChangeIsActive(bool isActive)
@@ -86,6 +89,13 @@ namespace AbcBlog.Domain.Aggregates.Users
             this.IsDeleted = true;
 
             var eventItem = new UserDeletedEvent(this.Id);
+            AddDomainEvent(eventItem);
+            return this;
+        }
+
+        public User SendEmailVerification()
+        {
+            var eventItem = new UserEmailVerificationEvent($"{FirstName} {LastName}", Id);
             AddDomainEvent(eventItem);
             return this;
         }

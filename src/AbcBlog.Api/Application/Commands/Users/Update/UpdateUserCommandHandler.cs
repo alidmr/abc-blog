@@ -1,6 +1,6 @@
 ﻿using AbcBlog.Api.Application.Constants;
 using AbcBlog.Domain.Aggregates.Users;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using MediatR;
 
@@ -24,7 +24,7 @@ namespace AbcBlog.Api.Application.Commands.Users.Update
             if (user.IsDeleted)
                 throw new BusinessException(nameof(ApplicationErrorCode.Error9), ApplicationErrorCode.Error9);
 
-            user = User.Load(request.Id, request.FirstName, request.LastName, user.Email, user.IsActive, user.IsDeleted,"","");
+            user = User.Load(request.Id, request.FirstName, request.LastName, user.Email, user.IsActive, user.IsDeleted, user.IsEmailVerified, "", "");
 
             await _userRepository.UpdateAsync(user);
 

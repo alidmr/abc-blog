@@ -1,9 +1,9 @@
-﻿using AbcBlog.Api.Application.Queries.GetUsers.Dtos;
-using AbcBlog.Domain.Interfaces.User;
+﻿using AbcBlog.Api.Application.Queries.Users.GetUsers.Dtos;
+using AbcBlog.Domain.Interfaces.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace AbcBlog.Api.Application.Queries.GetUsers
+namespace AbcBlog.Api.Application.Queries.Users.GetUsers
 {
     public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, GetUsersQueryResult>
     {

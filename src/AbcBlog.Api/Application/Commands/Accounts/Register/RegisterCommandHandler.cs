@@ -1,6 +1,6 @@
 ﻿using AbcBlog.Api.Application.Constants;
 using AbcBlog.Domain.Aggregates.Users;
-using AbcBlog.Domain.Interfaces.User;
+using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using AbcBlog.Shared.Helpers;
 using MediatR;
@@ -25,7 +25,9 @@ namespace AbcBlog.Api.Application.Commands.Accounts.Register
             var salt = PasswordHelper.GetPasswordSalt();
             var password = PasswordHelper.HashPassword(request.Password, salt);
 
-            var user = User.Load(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, true, false, password, salt);
+            var user = User.Load(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, true, false, false, password, salt);
+
+            user.SendEmailVerification();
 
             await _userRepository.AddAsync(user);
 

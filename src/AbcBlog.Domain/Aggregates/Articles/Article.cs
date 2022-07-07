@@ -9,34 +9,34 @@ namespace AbcBlog.Domain.Aggregates.Articles
         public string Title { get; private set; }
         public string Description { get; private set; }
         public Guid OwnerId { get; private set; }
-        public DateTime CreatedDate { get; private set; }
-        public bool IsDeleted { get; private set; }
-        public bool IsActive { get; private set; }
 
-        private Article(string title, string description, Guid ownerId, DateTime createdDate, bool isActive, bool isDeleted)
+        private int _statusId;
+
+        public ArticleStatus Status { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+
+        private Article(string title, string description, Guid ownerId, int statusId, DateTime createdDate)
         {
             Title = title;
             Description = description;
             OwnerId = ownerId;
+            _statusId = statusId;
             CreatedDate = createdDate;
-            IsActive = isActive;
-            IsDeleted = isDeleted;
+            Status = ArticleStatus.FromId(statusId);
         }
 
-        private Article(Guid id, string title, string description, Guid ownerId, DateTime createdDate, bool isActive,
-            bool isDeleted)
+        private Article(Guid id, string title, string description, Guid ownerId, int statusId, DateTime createdDate)
         {
             Id = id;
             Title = title;
             Description = description;
             OwnerId = ownerId;
+            _statusId = statusId;
             CreatedDate = createdDate;
-            IsActive = isActive;
-            IsDeleted = isDeleted;
+            Status = ArticleStatus.FromId(statusId);
         }
 
-        public static Article Load(Guid id, string title, string description, Guid ownerId, DateTime createdDate,
-            bool isActive, bool isDeleted)
+        public static Article Load(Guid id, string title, string description, Guid ownerId, int statusId, DateTime createdDate)
         {
             if (id == null || id == Guid.Empty)
                 throw new DomainException(nameof(DomainErrorCode.Error5), DomainErrorCode.Error5);
@@ -53,11 +53,10 @@ namespace AbcBlog.Domain.Aggregates.Articles
             if (createdDate == DateTime.MinValue)
                 throw new DomainException(nameof(DomainErrorCode.Error9), DomainErrorCode.Error9);
 
-            return new Article(id, title, description, ownerId, createdDate, isActive, isDeleted);
+            return new Article(id, title, description, ownerId, statusId, createdDate);
         }
 
-        public static Article Load(string title, string description, Guid ownerId, DateTime createdDate,
-            bool isActive, bool isDeleted)
+        public static Article Load(string title, string description, Guid ownerId, int statusId, DateTime createdDate)
         {
             if (string.IsNullOrEmpty(title))
                 throw new DomainException(nameof(DomainErrorCode.Error6), DomainErrorCode.Error6);
@@ -71,7 +70,7 @@ namespace AbcBlog.Domain.Aggregates.Articles
             if (createdDate == DateTime.MinValue)
                 throw new DomainException(nameof(DomainErrorCode.Error9), DomainErrorCode.Error9);
 
-            return new Article(title, description, ownerId, createdDate, isActive, isDeleted);
+            return new Article(title, description, ownerId, statusId, createdDate);
         }
 
     }

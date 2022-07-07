@@ -1,4 +1,4 @@
-﻿namespace AbcBlog.Api.Application.Queries.GetUsers.Dtos
+﻿namespace AbcBlog.Api.Application.Queries.Users.GetUsers.Dtos
 {
     public class GetUsersDto
     {

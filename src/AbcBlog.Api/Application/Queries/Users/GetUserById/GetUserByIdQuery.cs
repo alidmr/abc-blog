@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace AbcBlog.Api.Application.Queries.GetUserById
+namespace AbcBlog.Api.Application.Queries.Users.GetUserById
 {
     public class GetUserByIdQuery : IRequest<GetUserByIdQueryResult>
     {
