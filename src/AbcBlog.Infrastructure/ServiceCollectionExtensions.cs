@@ -20,6 +20,7 @@ namespace AbcBlog.Infrastructure
         {
             services.AddDbContext<AbcBlogContext>(options =>
             {
+                options.EnableSensitiveDataLogging();
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 

@@ -5,10 +5,13 @@ using AbcBlog.Domain.SeedWorks;
 
 namespace AbcBlog.Domain.Aggregates.Users
 {
-    public class User : BaseEntity<Guid>, IAggregateRoot
+    public class User : BaseEntity<int>, IAggregateRoot
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
+
+        public string FullName => $"{FirstName} {LastName}";
+
         public string Email { get; private set; }
         public DateTime CreatedDate { get; private set; }
         public bool IsActive { get; private set; }
@@ -30,19 +33,6 @@ namespace AbcBlog.Domain.Aggregates.Users
             PasswordSalt = passwordSalt;
         }
 
-        private User(Guid id, string firstName, string lastName, string email, DateTime createdDate, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
-        {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            CreatedDate = createdDate;
-            IsActive = isActive;
-            IsDeleted = isDeleted;
-            IsEmailVerified = isEmailVerified;
-            Password = password;
-            PasswordSalt = passwordSalt;
-        }
 
         public static User Load(string firstName, string lastName, string email, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
         {
@@ -58,45 +48,49 @@ namespace AbcBlog.Domain.Aggregates.Users
             return new User(firstName, lastName, email, DateTime.Now, isActive, isDeleted, isEmailVerified, password, passwordSalt);
         }
 
-        public static User Load(Guid id, string firstName, string lastName, string email, bool isActive, bool isDeleted, bool isEmailVerified, string password, string passwordSalt)
+        public User ChangeIsActive(bool isActive)
         {
-            if (id == null || id == Guid.Empty)
-                throw new DomainException(nameof(DomainErrorCode.Error4), DomainErrorCode.Error4);
+            IsActive = isActive;
+            return this;
+        }
 
+        public User ChangeIsDeleted()
+        {
+            IsDeleted = true;
+            return this;
+        }
+
+        public User SendEmailVerification()
+        {
+            var eventItem = new UserEmailVerificationEvent(FullName, Id, Email);
+            AddDomainEvent(eventItem);
+            return this;
+        }
+
+        public User Update(string firstName, string lastName)
+        {
             if (string.IsNullOrEmpty(firstName))
                 throw new DomainException(nameof(DomainErrorCode.Error1), DomainErrorCode.Error1);
 
             if (string.IsNullOrEmpty(lastName))
                 throw new DomainException(nameof(DomainErrorCode.Error2), DomainErrorCode.Error2);
 
+            FirstName = firstName;
+            LastName = lastName;
+            return this;
+        }
+
+        public User ChangeEmail(string email)
+        {
             if (string.IsNullOrEmpty(email))
                 throw new DomainException(nameof(DomainErrorCode.Error3), DomainErrorCode.Error3);
 
-            return new User(id, firstName, lastName, email, DateTime.Now, isActive, isDeleted, isEmailVerified, password, passwordSalt);
-        }
+            Email = email;
+            IsEmailVerified = false;
 
-        public User ChangeIsActive(bool isActive)
-        {
-            this.IsActive = isActive;
-
-            var eventItem = new UserChangeIsActiveEvent(this.Id, isActive);
+            var eventItem = new UserEmailVerificationEvent($"{FirstName} {LastName}", Id, Email);
             AddDomainEvent(eventItem);
-            return this;
-        }
 
-        public User ChangeIsDeleted()
-        {
-            this.IsDeleted = true;
-
-            var eventItem = new UserDeletedEvent(this.Id);
-            AddDomainEvent(eventItem);
-            return this;
-        }
-
-        public User SendEmailVerification()
-        {
-            var eventItem = new UserEmailVerificationEvent($"{FirstName} {LastName}", Id);
-            AddDomainEvent(eventItem);
             return this;
         }
 

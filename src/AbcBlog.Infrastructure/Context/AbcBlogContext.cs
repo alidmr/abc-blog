@@ -42,23 +42,18 @@ namespace AbcBlog.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ArticleEntityTypeConfiguration());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellation = default(CancellationToken))
         {
-            try
-            {
-                await _mediator.DispatchDomainEventsAsync(this);
+            await _mediator.DispatchDomainEventsAsync(this);
 
-                var result = await base.SaveChangesAsync(cancellation);
+            var result = await base.SaveChangesAsync(cancellation);
 
-                return true;
-            }
-            catch (Exception exception)
-            {
-                return false;
-            }
+            return true;
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync()

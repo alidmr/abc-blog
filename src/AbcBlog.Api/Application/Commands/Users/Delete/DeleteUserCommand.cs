@@ -4,11 +4,11 @@ namespace AbcBlog.Api.Application.Commands.Users.Delete
 {
     public class DeleteUserCommand : IRequest<DeleteUserCommandResult>
     {
-        public DeleteUserCommand(Guid userId)
+        public DeleteUserCommand(int userId)
         {
             UserId = userId;
         }
 
-        public Guid UserId { get; private set; }
+        public int UserId { get; private set; }
     }
 }

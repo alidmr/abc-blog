@@ -32,7 +32,7 @@ namespace AbcBlog.Infrastructure.Repository
             _dbSet.Remove(entity);
         }
 
-        public virtual void Delete(Guid id)
+        public virtual void Delete(int id)
         {
             _dbSet.Remove(_dbSet.Find(id));
         }
@@ -42,7 +42,7 @@ namespace AbcBlog.Infrastructure.Repository
             return predicate != null ? _dbSet.Where(predicate).ToList() : _dbSet.ToList();
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual TEntity GetById(int id)
         {
             return _dbSet.Find(id);
         }
@@ -63,12 +63,7 @@ namespace AbcBlog.Infrastructure.Repository
 
         public virtual async Task UpdateAsync(TEntity entity)
         {
-            await Task.Run(() =>
-            {
-                _context.Entry<TEntity>(entity).State = EntityState.Modified;
-
-                //_dbSet.Update(entity);
-            });
+            _dbSet.Update(entity);
         }
 
         public virtual async Task DeleteAsync(TEntity entity)
@@ -79,7 +74,7 @@ namespace AbcBlog.Infrastructure.Repository
             });
         }
 
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(int id)
         {
             await Task.Run(async () =>
             {
@@ -94,7 +89,7 @@ namespace AbcBlog.Infrastructure.Repository
             return predicate != null ? await _dbSet.Where(predicate).ToListAsync() : await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             var item = await _dbSet.FindAsync(id);
             return item ?? null!;

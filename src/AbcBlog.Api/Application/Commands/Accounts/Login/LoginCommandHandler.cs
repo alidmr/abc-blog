@@ -36,7 +36,7 @@ namespace AbcBlog.Api.Application.Commands.Accounts.Login
                 Result = new LoginResponseDto()
                 {
                     Email = user.Email,
-                    FullName = $"{user.FirstName} {user.LastName}",
+                    FullName = user.FullName,
                     AccessToken = accessToken
                 }
             };

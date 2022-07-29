@@ -16,5 +16,11 @@
         public static readonly string Error12 = "Şifre min. 6 karakter olmalıdır";
         public static readonly string Error13 = "Email veya şifreniz yanlış";
         public static readonly string Error14 = "Makale bulunamadı";
+        public static readonly string Error15 = "Eski e-mail adresi ile yeni e-mail adresi aynı olamaz";
+        public static readonly string Error16 = "Başlık boş olamaz";
+        public static readonly string Error17 = "Açıklama boş olamaz";
+        public static readonly string Error18 = "Oluşturan kullanıcı boş olamaz";
+        public static readonly string Error19 = "Makale Id boş olamaz";
+        public static readonly string Error20 = "Makale silinmiş";
     }
 }

@@ -25,7 +25,9 @@ namespace AbcBlog.Api.Application.Commands.Users.Delete
 
             user.ChangeIsDeleted();
 
-            await _userRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+
+                //await _userRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             return new DeleteUserCommandResult()
             {

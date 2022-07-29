@@ -1,21 +1,20 @@
 ﻿using AbcBlog.Api.Application.Constants;
-using AbcBlog.Domain.Aggregates.Users;
 using AbcBlog.Domain.Interfaces.Users;
 using AbcBlog.Shared.Exceptions;
 using MediatR;
 
-namespace AbcBlog.Api.Application.Commands.Users.Update
+namespace AbcBlog.Api.Application.Commands.Users.ChangeEmail
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UpdateUserCommandResult>
+    public class ChangeUserEmailCommandHandler : IRequestHandler<ChangeUserEmailCommand, ChangeUserEmailCommandResult>
     {
         private readonly IUserRepository _userRepository;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository)
+        public ChangeUserEmailCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<UpdateUserCommandResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ChangeUserEmailCommandResult> Handle(ChangeUserEmailCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdAsync(request.Id);
             if (user == null)
@@ -24,13 +23,16 @@ namespace AbcBlog.Api.Application.Commands.Users.Update
             if (user.IsDeleted)
                 throw new BusinessException(nameof(ApplicationErrorCode.Error9), ApplicationErrorCode.Error9);
 
-            user.Update(request.FirstName, request.LastName);
+            if (user.Email == request.Email)
+                throw new BusinessException(nameof(ApplicationErrorCode.Error15), ApplicationErrorCode.Error15);
+
+            user.ChangeEmail(request.Email);
 
             await _userRepository.UpdateAsync(user);
 
             var result = await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
 
-            return new UpdateUserCommandResult()
+            return new ChangeUserEmailCommandResult()
             {
                 Result = result > 0,
                 Message = "İşlem başarılı"

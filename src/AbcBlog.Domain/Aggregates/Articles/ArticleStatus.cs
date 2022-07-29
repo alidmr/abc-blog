@@ -6,10 +6,9 @@ namespace AbcBlog.Domain.Aggregates.Articles
 {
     public class ArticleStatus : Enumeration
     {
-        public static ArticleStatus WaitingApprove = new ArticleStatus(1, nameof(WaitingApprove).ToLower());
-        public static ArticleStatus Passive = new ArticleStatus(2, nameof(Passive).ToLower());
-        public static ArticleStatus Active = new ArticleStatus(3, nameof(Active).ToLower());
-        public static ArticleStatus Deleted = new ArticleStatus(4, nameof(Deleted).ToLower());
+        public static ArticleStatus Passive = new ArticleStatus(1, nameof(Passive).ToLower());
+        public static ArticleStatus Active = new ArticleStatus(2, nameof(Active).ToLower());
+        public static ArticleStatus Deleted = new ArticleStatus(3, nameof(Deleted).ToLower());
 
         public ArticleStatus(int id, string name) : base(id, name)
         {
@@ -19,7 +18,6 @@ namespace AbcBlog.Domain.Aggregates.Articles
         {
             return new[]
             {
-                WaitingApprove,
                 Passive,
                 Active,
                 Deleted

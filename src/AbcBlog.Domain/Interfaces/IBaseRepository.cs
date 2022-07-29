@@ -9,9 +9,9 @@ namespace AbcBlog.Domain.Interfaces
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
-        void Delete(Guid id);
+        void Delete(int id);
         List<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate = null);
-        TEntity GetById(Guid id);
+        TEntity GetById(int id);
         TEntity Get(Expression<Func<TEntity, bool>> predicate); 
         #endregion
 
@@ -24,9 +24,9 @@ namespace AbcBlog.Domain.Interfaces
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TEntity entity);
-        Task DeleteAsync(Guid id);
+        Task DeleteAsync(int id);
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null);
-        Task<TEntity> GetByIdAsync(Guid id);
+        Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate); 
         #endregion
     }

@@ -18,7 +18,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         {
             var result = Assert.Throws<DomainException>(() =>
             {
-                User.Load(Guid.Empty, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
+                User.Load(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
                     It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
             });
             result.Should().NotBeNull();
@@ -30,7 +30,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         {
             var result = Assert.Throws<DomainException>(() =>
             {
-                User.Load(Guid.NewGuid(), null, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
+                User.Load(null, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
                     It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
             });
             result.Should().NotBeNull();
@@ -43,7 +43,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker("tr");
             var result = Assert.Throws<DomainException>(() =>
             {
-                User.Load(Guid.NewGuid(), faker.Person.FirstName, null, It.IsAny<string>(), It.IsAny<bool>(),
+                User.Load(faker.Person.FirstName, null, It.IsAny<string>(), It.IsAny<bool>(),
                     It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
             });
             result.Should().NotBeNull();
@@ -56,7 +56,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker("tr");
             var result = Assert.Throws<DomainException>(() =>
             {
-                User.Load(Guid.NewGuid(), faker.Person.FirstName, faker.Person.LastName, null, It.IsAny<bool>(),
+                User.Load(faker.Person.FirstName, faker.Person.LastName, null, It.IsAny<bool>(),
                     It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
             });
             result.Should().NotBeNull();
@@ -67,7 +67,6 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         public void Load_ShouldResult_WhenSuccess()
         {
             var faker = new Faker("tr");
-            var userId = faker.Random.Guid();
             var firstName = faker.Person.FirstName;
             var lastName = faker.Person.LastName;
             var email = faker.Internet.Email();
@@ -77,10 +76,9 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var password = faker.Internet.Password();
             var salt = faker.Random.String();
 
-            var result = User.Load(userId, firstName, lastName, email, isActive, isDeleted, isEmailVerified, password, salt);
+            var result = User.Load(firstName, lastName, email, isActive, isDeleted, isEmailVerified, password, salt);
 
             result.Should().NotBeNull();
-            result.Id.Should().Be(userId);
             result.FirstName.Should().Be(firstName);
             result.LastName.Should().Be(lastName);
             result.Email.Should().Be(email);

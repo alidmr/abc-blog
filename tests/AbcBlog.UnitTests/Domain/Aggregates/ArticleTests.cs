@@ -17,7 +17,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         {
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(Guid.Empty, It.IsAny<string>(), It.IsAny<string>(), Guid.Empty, It.IsAny<int>(), It.IsAny<DateTime>());
+                Article.Load(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
             });
 
             result.Should().NotBeNull();
@@ -30,8 +30,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker();
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(faker.Random.Guid(), string.Empty, It.IsAny<string>(), It.IsAny<Guid>(),
-                    It.IsAny<int>(), It.IsAny<DateTime>());
+                Article.Load(string.Empty, It.IsAny<string>(), It.IsAny<int>());
             });
 
             result.Should().NotBeNull();
@@ -44,8 +43,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker();
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(faker.Random.Guid(), faker.Random.String(), string.Empty, It.IsAny<Guid>(),
-                    It.IsAny<int>(), It.IsAny<DateTime>());
+                Article.Load(faker.Random.String(), string.Empty, It.IsAny<int>());
             });
 
             result.Should().NotBeNull();
@@ -53,13 +51,12 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         }
 
         [Test]
-        public void Load_ShouldThrowException_WhenArticleOwnerIdNull()
+        public void Load_ShouldThrowException_WhenArticleCreatedUserIdNull()
         {
             var faker = new Faker();
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(faker.Random.Guid(), faker.Random.String(), faker.Random.String(), It.IsAny<Guid>(), It.IsAny<int>(),
-                    It.IsAny<DateTime>());
+                Article.Load(faker.Random.String(), faker.Random.String(), It.IsAny<int>());
             });
 
             result.Should().NotBeNull();
@@ -72,8 +69,7 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker();
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(faker.Random.Guid(), faker.Random.String(), faker.Random.String(), faker.Random.Guid(), It.IsAny<int>(),
-                    It.IsAny<DateTime>());
+                Article.Load(faker.Random.String(), faker.Random.String(), faker.Random.Int(1));
             });
 
             result.Should().NotBeNull();
@@ -84,22 +80,16 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
         public void Load_ShouldResult_WhenSuccess()
         {
             var faker = new Faker();
-            var articleId = faker.Random.Guid();
             var title = faker.Lorem.Sentence(3);
             var description = faker.Lorem.Paragraph(3);
-            var ownerId = faker.Random.Guid();
-            var statusId = faker.Random.Int(1, 4);
-            var createdDate = faker.Date.Future();
+            var createdUserId = faker.Random.Int(1);
 
-            var result = Article.Load(articleId, title, description, ownerId, statusId, createdDate);
+            var result = Article.Load(title, description, createdUserId);
 
             result.Should().NotBeNull();
-            result.Id.Should().Be(articleId);
             result.Title.Should().Be(title);
             result.Description.Should().Be(description);
-            result.OwnerId.Should().Be(ownerId);
-            result.CreatedDate.Should().Be(createdDate);
-
+            result.CreatedUserId.Should().Be(createdUserId);
         }
     }
 }

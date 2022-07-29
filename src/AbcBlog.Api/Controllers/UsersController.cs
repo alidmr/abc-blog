@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using AbcBlog.Api.Application.Commands.Users.Create;
+using AbcBlog.Api.Application.Commands.Users.ChangeEmail;
 using AbcBlog.Api.Application.Commands.Users.Delete;
 using AbcBlog.Api.Application.Commands.Users.Update;
 using AbcBlog.Api.Application.Queries.Users.GetUserById;
@@ -13,23 +13,12 @@ namespace AbcBlog.Api.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UsersController : ControllerBase
     {
 
-
-        [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(ErrorResponse), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> CreateUser([FromServices] IMediator mediator, CreateUserCommand command, CancellationToken cancellationToken)
-        {
-            var result = await mediator.Send(command, cancellationToken);
-            return Ok(result);
-        }
-
         [HttpGet("{userId:guid}")]
-        public async Task<IActionResult> GetUserById([FromServices] IMediator mediator, Guid userId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUserById([FromServices] IMediator mediator, int userId, CancellationToken cancellationToken)
         {
             var result = await mediator.Send(new GetUserByIdQuery(userId), cancellationToken);
             return Ok(result);
@@ -52,10 +41,18 @@ namespace AbcBlog.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromServices] IMediator mediator, Guid userId,
+        public async Task<IActionResult> DeleteUser([FromServices] IMediator mediator, int userId,
             CancellationToken cancellationToken)
         {
             var result = await mediator.Send(new DeleteUserCommand(userId), cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("change-email")]
+        public async Task<IActionResult> ChangeUserEmail([FromServices] IMediator mediator, ChangeUserEmailCommand command)
+        {
+            var result = await mediator.Send(command);
             return Ok(result);
         }
     }

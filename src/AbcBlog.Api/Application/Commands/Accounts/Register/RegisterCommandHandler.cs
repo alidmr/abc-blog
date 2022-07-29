@@ -25,7 +25,7 @@ namespace AbcBlog.Api.Application.Commands.Accounts.Register
             var salt = PasswordHelper.GetPasswordSalt();
             var password = PasswordHelper.HashPassword(request.Password, salt);
 
-            var user = User.Load(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, true, false, false, password, salt);
+            var user = User.Load(request.FirstName, request.LastName, request.Email, true, false, false, password, salt);
 
             user.SendEmailVerification();
 

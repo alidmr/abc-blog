@@ -4,11 +4,11 @@ namespace AbcBlog.Api.Application.Queries.Articles.GetArticleById
 {
     public class GetArticleByIdQuery : IRequest<GetArticleByIdQueryResult>
     {
-        public GetArticleByIdQuery(Guid id)
+        public GetArticleByIdQuery(int id)
         {
             Id = id;
         }
 
-        public Guid Id { get; private set; }
+        public int Id { get; private set; }
     }
 }
