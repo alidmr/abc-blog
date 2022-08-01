@@ -10,6 +10,7 @@ namespace AbcBlog.Api.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<LoggingHandlingMiddleware>();
             services.AddScoped<ExceptionHandlingMiddleware>();
             //services.AddMediatR(typeof(CreateUserCommand).GetTypeInfo().Assembly);
 
@@ -19,6 +20,7 @@ namespace AbcBlog.Api.Application
 
             services.AddValidatorsFromAssemblies(registeredAssemblies.ToArray());
 
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             return services;

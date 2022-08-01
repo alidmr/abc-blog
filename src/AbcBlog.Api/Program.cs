@@ -90,10 +90,12 @@ namespace AbcBlog.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
-
             app.UseAuthentication();
             app.UseAuthorization();
+
+
+            app.UseMiddleware<LoggingHandlingMiddleware>();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.MapControllers();
 

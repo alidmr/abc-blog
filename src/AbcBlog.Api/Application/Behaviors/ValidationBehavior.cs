@@ -9,10 +9,12 @@ namespace AbcBlog.Api.Application.Behaviors
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
+        private readonly ILogger<ValidationBehavior<TRequest, TResponse>> _logger;
 
-        public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators, ILogger<ValidationBehavior<TRequest, TResponse>> logger)
         {
             _validators = validators;
+            _logger = logger;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -25,7 +27,7 @@ namespace AbcBlog.Api.Application.Behaviors
 
             if (errors.Any())
             {
-                // todo : logging
+                _logger.LogError($"[VALIDATION ERROR] Request : {request}");
 
                 var errorList = new List<ErrorDto>();
                 foreach (var error in errors)
