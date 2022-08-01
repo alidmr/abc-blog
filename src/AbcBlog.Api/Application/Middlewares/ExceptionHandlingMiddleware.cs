@@ -12,7 +12,7 @@ namespace AbcBlog.Api.Application.Middlewares
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
         private const string ErrorMessage = "Üzgünüz! İşleminiz sırasında beklenmedik bir hata olustu.";
 
         public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
@@ -32,7 +32,7 @@ namespace AbcBlog.Api.Application.Middlewares
             }
         }
 
-        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             string errorCode;
             HttpStatusCode statusCode;
@@ -104,7 +104,7 @@ namespace AbcBlog.Api.Application.Middlewares
                 };
             }
 
-            //_logger.LogError("[ERROR] Code : {errorCode} StatusCode : {statusCode} Message : {message}", errorCode, statusCode, message);
+            _logger.LogError("[ERROR] Code : {errorCode} StatusCode : {statusCode} Message : {message}", errorCode, statusCode, message);
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
