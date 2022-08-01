@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbcBlog.Shared", "src\AbcBl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{65E22543-A098-454E-B040-3B8A0AAE095B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbcBlog.UnitTests", "tests\AbcBlog.UnitTests\AbcBlog.UnitTests.csproj", "{3C84F045-8173-4ADB-9F81-CB0BA9F07F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbcBlog.UnitTests", "tests\AbcBlog.UnitTests\AbcBlog.UnitTests.csproj", "{3C84F045-8173-4ADB-9F81-CB0BA9F07F7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{66D8EA13-FA96-47D2-AB63-30172C336A3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

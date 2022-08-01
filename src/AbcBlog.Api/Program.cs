@@ -131,7 +131,7 @@ namespace AbcBlog.Api
                     new Uri(configuration["Logging:ElasticSearch:Url"]))
                 {
                     MinimumLogEventLevel = LogEventLevel.Debug,
-                    IndexFormat = "AbcBlogApi-{0:yyyy.MM.dd}"
+                    IndexFormat = "abcblogapi-{0:yyyy.MM.dd}"
                 })
                 .CreateLogger();
 
