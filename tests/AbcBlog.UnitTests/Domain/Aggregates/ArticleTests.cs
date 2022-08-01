@@ -13,18 +13,6 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
     public class ArticleTests
     {
         [Test]
-        public void Load_ShouldThrowException_WhenArticleIdNull()
-        {
-            var result = Assert.Throws<DomainException>(() =>
-            {
-                Article.Load(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
-            });
-
-            result.Should().NotBeNull();
-            result?.Code.Should().Be(nameof(DomainErrorCode.Error5));
-        }
-
-        [Test]
         public void Load_ShouldThrowException_WhenArticleTitleNull()
         {
             var faker = new Faker();
@@ -56,24 +44,11 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
             var faker = new Faker();
             var result = Assert.Throws<DomainException>(() =>
             {
-                Article.Load(faker.Random.String(), faker.Random.String(), It.IsAny<int>());
+                Article.Load(faker.Random.String(), faker.Random.String(), 0);
             });
 
             result.Should().NotBeNull();
             result?.Code.Should().Be(nameof(DomainErrorCode.Error8));
-        }
-
-        [Test]
-        public void Load_ShouldThrowException_WhenArticleCreatedDateNull()
-        {
-            var faker = new Faker();
-            var result = Assert.Throws<DomainException>(() =>
-            {
-                Article.Load(faker.Random.String(), faker.Random.String(), faker.Random.Int(1));
-            });
-
-            result.Should().NotBeNull();
-            result?.Code.Should().Be(nameof(DomainErrorCode.Error9));
         }
 
         [Test]

@@ -22,22 +22,22 @@ namespace AbcBlog.UnitTests.Application.User
             _meditorMock.Reset();
         }
 
-        [Test]
-        public async Task CreateUser_ShouldInValidRequest()
-        {
-            //_meditorMock.Setup(x => x.Send(It.IsAny<CreateUserCommand>(), CancellationToken.None))
-            //    .ReturnsAsync(It.IsAny<CreateUserCommandResult>());
+        //[Test]
+        //public async Task CreateUser_ShouldInValidRequest()
+        //{
+        //    //_meditorMock.Setup(x => x.Send(It.IsAny<CreateUserCommand>(), CancellationToken.None))
+        //    //    .ReturnsAsync(It.IsAny<CreateUserCommandResult>());
 
-            //var userController = new UsersController();
+        //    //var userController = new UsersController();
 
-            //var command = new CreateUserCommand();
+        //    //var command = new CreateUserCommand();
 
-            //var result = await userController.CreateUser(_meditorMock.Object, command,
-            //    CancellationToken.None);
+        //    //var result = await userController.CreateUser(_meditorMock.Object, command,
+        //    //    CancellationToken.None);
 
 
-            //Assert.Equals(result.Stat)
+        //    //Assert.Equals(result.Stat)
 
-        }
+        //}
     }
 }

@@ -36,7 +36,7 @@ namespace AbcBlog.Domain.Aggregates.Articles
             if (string.IsNullOrEmpty(description))
                 throw new DomainException(nameof(DomainErrorCode.Error7), DomainErrorCode.Error7);
 
-            if (createdUserId == null && createdUserId <= 0)
+            if (createdUserId <= 0)
                 throw new DomainException(nameof(DomainErrorCode.Error8), DomainErrorCode.Error8);
 
             return new Article(title, description, createdUserId, ArticleStatus.Active.Id, DateTime.Now);

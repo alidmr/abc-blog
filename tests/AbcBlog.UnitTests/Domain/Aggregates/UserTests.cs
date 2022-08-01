@@ -14,18 +14,6 @@ namespace AbcBlog.UnitTests.Domain.Aggregates
     public class UserTests
     {
         [Test]
-        public void Load_ShouldThrowException_WhenUserIdNull()
-        {
-            var result = Assert.Throws<DomainException>(() =>
-            {
-                User.Load(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
-                    It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>(), It.IsAny<string>());
-            });
-            result.Should().NotBeNull();
-            result?.Code.Should().Be(nameof(DomainErrorCode.Error4));
-        }
-
-        [Test]
         public void Load_ShouldThrowException_WhenUserFistNameNull()
         {
             var result = Assert.Throws<DomainException>(() =>
