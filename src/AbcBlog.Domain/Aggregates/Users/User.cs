@@ -57,6 +57,10 @@ namespace AbcBlog.Domain.Aggregates.Users
         public User ChangeIsDeleted()
         {
             IsDeleted = true;
+
+            var eventItem = new UserDeletedEvent(Id);
+            AddDomainEvent(eventItem);
+
             return this;
         }
 

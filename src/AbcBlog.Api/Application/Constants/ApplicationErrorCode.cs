@@ -22,5 +22,7 @@
         public static readonly string Error18 = "Oluşturan kullanıcı boş olamaz";
         public static readonly string Error19 = "Makale Id boş olamaz";
         public static readonly string Error20 = "Makale silinmiş";
+        public static readonly string Error21 = "Page boş olamaz";
+        public static readonly string Error22 = "PageSize boş olamaz";
     }
 }

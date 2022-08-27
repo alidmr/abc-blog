@@ -1,5 +1,4 @@
-﻿using System.Net;
-using AbcBlog.Api.Application.Commands.Users.ChangeEmail;
+﻿using AbcBlog.Api.Application.Commands.Users.ChangeEmail;
 using AbcBlog.Api.Application.Commands.Users.Delete;
 using AbcBlog.Api.Application.Commands.Users.Update;
 using AbcBlog.Api.Application.Queries.Users.GetUserById;
@@ -17,7 +16,7 @@ namespace AbcBlog.Api.Controllers
     public class UsersController : ControllerBase
     {
 
-        [HttpGet("{userId:guid}")]
+        [HttpGet("{userId:int}")]
         public async Task<IActionResult> GetUserById([FromServices] IMediator mediator, int userId, CancellationToken cancellationToken)
         {
             var result = await mediator.Send(new GetUserByIdQuery(userId), cancellationToken);
@@ -25,8 +24,8 @@ namespace AbcBlog.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers([FromServices] IMediator mediator, int page, int pageSize,
-            CancellationToken cancellationToken)
+        public async Task<IActionResult> GetUsers([FromServices] IMediator mediator,
+            CancellationToken cancellationToken, int page, int pageSize)
         {
             var result = await mediator.Send(new GetUsersQuery(page, pageSize), cancellationToken);
             return Ok(result);

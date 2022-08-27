@@ -2,11 +2,11 @@
 {
     public class UserDeletedEvent : BaseDomainEvent
     {
-        public UserDeletedEvent(Guid userId)
+        public UserDeletedEvent(int userId)
         {
             UserId = userId;
         }
 
-        public Guid UserId { get; private set; }
+        public int UserId { get; private set; }
     }
 }

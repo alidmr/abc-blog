@@ -2,7 +2,7 @@
 using AbcBlog.Api.Application.Constants;
 using FluentValidation;
 
-namespace AbcBlog.Api.Application.Validations.Users
+namespace AbcBlog.Api.Application.Validations.Users.Commands
 {
     public class ChangeUserEmailCommandValidator : AbstractValidator<ChangeUserEmailCommand>
     {
